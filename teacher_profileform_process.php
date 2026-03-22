@@ -6,6 +6,7 @@ $conn = mysqli_connect("localhost", "root", "", "collegenotes");
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $user_id = $_SESSION['user_id'];
     $qualification = trim($_POST['qualification']);
     $branch = trim($_POST['branch']);
@@ -13,8 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $experience = !empty($_POST['experience']) ? intval($_POST['experience']) : 0;
     $profile_image = null;
 
-    // Handle profile image upload
+    /* ---------- PROFILE IMAGE UPLOAD ---------- */
+
     if (!empty($_FILES['profile_image']['name'])) {
+
         $uploadDir = "uploads/profile_pics/";
         if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);
 
@@ -31,13 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Check if profile exists
+    /* ---------- CHECK IF PROFILE EXISTS ---------- */
+
     $check = $conn->prepare("SELECT profile_id FROM user_profiles WHERE user_id=?");
     $check->bind_param("i", $user_id);
     $check->execute();
     $check->store_result();
 
     if ($check->num_rows > 0) {
+
+        // UPDATE
+
         if ($profile_image) {
             $stmt = $conn->prepare("UPDATE user_profiles 
                 SET qualification=?, branch=?, phone=?, experience=?, profile_image=?, updated_at=NOW()
@@ -49,24 +56,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE user_id=?");
             $stmt->bind_param("ssisi", $qualification, $branch, $phone, $experience, $user_id);
         }
+
     } else {
+
+        // INSERT
+
         $stmt = $conn->prepare("INSERT INTO user_profiles 
             (user_id, qualification, branch, phone, experience, profile_image) 
             VALUES (?, ?, ?, ?, ?, ?)");
+
         $stmt->bind_param("isssis", $user_id, $qualification, $branch, $phone, $experience, $profile_image);
     }
 
+    /* ---------- EXECUTE ---------- */
+
     if ($stmt->execute()) {
-        echo "<script>alert('✅ Profile saved successfully!'); window.location.href='teacher_dash.php';</script>";
+
+        // ✅ SUCCESS → Redirect to profile page with flag
+        header("Location: teacher_profile.php?updated=1");
+        exit();
+
     } else {
-        echo "<script>alert('❌ Error saving profile.'); window.history.back();</script>";
+
+        // ❌ ERROR → Redirect back to form with flag
+        header("Location: teacher_profileform.php?error=1");
+        exit();
     }
 
     $stmt->close();
     $conn->close();
 
 } else {
-    header("Location: teacher_profileform.php");
+
+    // ❌ Direct access without POST
+    header("Location: teacher_profileform.php?error=invalid");
     exit();
 }
 ?>

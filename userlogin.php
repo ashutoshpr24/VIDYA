@@ -15,19 +15,19 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins;
+font-family:Poppins, sans-serif;
 }
 
 body{
 background:#eef2f7;
 display:flex;
-align-items:center;
+align-items:center;   /* SAME AS ORIGINAL */
 justify-content:center;
 min-height:100vh;
-padding:10px;
+padding:10px;         /* TOP MARGIN KEPT SAME */
 }
 
-/* container */
+/* CONTAINER */
 
 .container{
 display:flex;
@@ -55,43 +55,92 @@ z-index:2;
 
 /* LOGO */
 
-.logo{
-margin-bottom:20px;
-}
+.logo{ margin-bottom:20px; }
 
 .logo img{
 width:150px;
-height:auto;
-margin-left: -20PX;
+margin-left:-20px;
 }
 
-/* heading */
+/* HEADING */
 
 .left h2{
 font-size:26px;
 margin-bottom:20px;
 color:#111827;
+text-align:center;
 }
 
-/* inputs */
+/* ===== FLOATING FIELD ===== */
 
-input{
+.field{
+position:relative;
+margin-bottom:14px;
+}
+
+.field input{
 width:100%;
-padding:12px;
+padding:12px 10px;
 border-radius:7px;
 border:1px solid #d1d5db;
-margin-bottom:14px;
 font-size:14px;
-transition:all .25s ease;
+background:white;
+transition:.25s;
 }
 
-input:focus{
+/* LABEL */
+
+.field label{
+position:absolute;
+left:10px;
+top:12px;
+font-size:14px;
+color:#6b7280;
+background:white;
+padding:0 4px;
+pointer-events:none;
+transition:.25s;
+}
+
+/* FOCUS */
+
+.field input:focus{
 outline:none;
 border-color:#059669;
 box-shadow:0 0 0 3px rgba(16,185,129,0.15);
 }
 
-/* button */
+/* FLOAT EFFECT */
+
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label{
+top:-8px;
+font-size:11px;
+color:#059669;
+}
+
+/* PASSWORD WRAPPER */
+
+.password-wrapper{
+position:relative;
+}
+
+.password-wrapper input{
+padding-right:38px;
+}
+
+.eye{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:16px;
+color:#6b7280;
+user-select:none;
+}
+
+/* BUTTON */
 
 button{
 width:100%;
@@ -111,7 +160,7 @@ transform:translateY(-2px);
 box-shadow:0 8px 18px rgba(0,0,0,0.12);
 }
 
-/* signup text */
+/* SIGNUP */
 
 .signup{
 margin-top:16px;
@@ -120,14 +169,10 @@ color:#6b7280;
 text-align:center;
 }
 
-/* signup link */
-
 .signup a{
 color:#059669;
 text-decoration:none;
 font-weight:500;
-display:inline-block;
-transition:transform .2s ease, font-weight .2s ease;
 }
 
 .signup a:hover{
@@ -142,9 +187,7 @@ flex:1.3;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:0;
 overflow:hidden;
-background:white;
 }
 
 .right img{
@@ -157,31 +200,28 @@ object-fit:cover;
 
 @media(max-width:768px){
 
-.container{
-flex-direction:column;
-min-height:auto;
-}
+  body{
+    padding:10px;              /* ✅ remove outer gap */
+    align-items:center; /* ✅ stop vertical centering */
+  }
 
-.right{
-order:-1;
-height:260px;
-}
+  .container{
+    flex-direction:column;
+    min-height:auto;
+    border-radius:0;        /* optional: edge-to-edge clean look */
+  }
 
-.left{
-padding:35px 22px;
-box-shadow:none;
-}
+  .right{
+    order:-1;
+    height:260px;
+  }
 
-.left h2{
-font-size:22px;
-}
-
-.logo img{
-width:130px;
-}
+  .left{
+    padding:25px 18px;      /* slightly tighter */
+    box-shadow:none;
+  }
 
 }
-
 </style>
 </head>
 
@@ -199,9 +239,20 @@ width:130px;
 
 <form action="user_logincode.php" method="POST">
 
-<input type="email" name="email" placeholder="Email address" required>
+<!-- EMAIL -->
 
-<input type="password" name="password" placeholder="Password" required>
+<div class="field">
+<input type="email" name="email" required placeholder=" ">
+<label>Email Address</label>
+</div>
+
+<!-- PASSWORD -->
+
+<div class="field password-wrapper">
+<input type="password" name="password" id="password" required placeholder=" ">
+<label>Password</label>
+<span class="eye" onclick="togglePassword()">👁</span>
+</div>
 
 <button type="submit" name="login">Log In</button>
 
@@ -214,12 +265,19 @@ Don't have an account? <a href="user_reg.php">Sign Up</a>
 </div>
 
 <div class="right">
-
 <img src="css/images/4444.png" alt="Students studying">
-
 </div>
 
 </div>
+
+<script>
+
+function togglePassword(){
+  const p = document.getElementById("password");
+  p.type = (p.type === "password") ? "text" : "password";
+}
+
+</script>
 
 </body>
 </html>

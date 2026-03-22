@@ -31,7 +31,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <body class="bg-gray-50 text-gray-800">
 
-<!-- MAIN LAYOUT -->
 <div class="flex">
 
 <!-- SIDEBAR -->
@@ -87,6 +86,24 @@ Logout
 <div class="max-w-5xl mx-auto px-6 py-10">
 
 <h2 class="text-3xl font-bold mb-6">My Profile</h2>
+
+<!-- ✅ SUCCESS MESSAGE -->
+<?php if(isset($_GET['updated'])): ?>
+<div id="flash-message"
+class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded shadow flex justify-between items-center">
+    <span>✅ Profile updated successfully!</span>
+    <button onclick="this.parentElement.remove()" class="font-bold">✖</button>
+</div>
+<?php endif; ?>
+
+<!-- ❌ ERROR MESSAGE -->
+<?php if(isset($_GET['error'])): ?>
+<div id="flash-message"
+class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded shadow flex justify-between items-center">
+    <span>❌ Failed to update profile. Please try again.</span>
+    <button onclick="this.parentElement.remove()" class="font-bold">✖</button>
+</div>
+<?php endif; ?>
 
 <!-- PROFILE CARD -->
 <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
@@ -200,6 +217,13 @@ Back to Dashboard
 <footer class="bg-gray-900 text-gray-400 py-10 text-center mt-10">
 © 2026 VIDYA. All rights reserved by Ashutosh Prajapati.
 </footer>
+
+<!-- 🔥 REMOVE QUERY PARAM AFTER LOAD -->
+<script>
+if (window.location.search.includes('updated') || window.location.search.includes('error')) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+</script>
 
 </body>
 </html>
