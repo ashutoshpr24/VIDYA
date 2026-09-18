@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username   = "root";
 $password   = "";
-$database   = "collegenotes";
+$database   = "vidyadb";
 
 $conn = new mysqli($servername, $username, $password, $database);
 

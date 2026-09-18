@@ -2,7 +2,7 @@
 include 'auth.php';
 protectPage(['teacher']); 
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $experience = !empty($_POST['experience']) ? intval($_POST['experience']) : 0;
     $profile_image = null;
 
-    /* ---------- PROFILE IMAGE UPLOAD ---------- */
+    /* --- PROFILE IMAGE UPLOAD ----- */
 
     if (!empty($_FILES['profile_image']['name'])) {
 
@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
 
-        // ✅ SUCCESS → Redirect to profile page with flag
+        //SUCCESS → Redirect to profile page with flag
         header("Location: teacher_profile.php?updated=1");
         exit();
 
     } else {
 
-        // ❌ ERROR → Redirect back to form with flag
+        //ERROR → Redirect back to form with flag
         header("Location: teacher_profileform.php?error=1");
         exit();
     }
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
 
-    // ❌ Direct access without POST
+    //Direct access without POST
     header("Location: teacher_profileform.php?error=invalid");
     exit();
 }

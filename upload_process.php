@@ -12,7 +12,7 @@ if (isset($_POST['upload'])) {
     $description = $_POST['description'];
     $subject_id = intval($_POST['subject_id']);
 
-    $conn = mysqli_connect("localhost", "root", "", "collegenotes");
+    $conn = mysqli_connect("localhost", "root", "", "vidyadb");
     if (!$conn) {
         die("DB connection failed: " . mysqli_connect_error());
     }

@@ -3,12 +3,12 @@
 include_once 'auth.php';
 protectPage(['admin','teacher']);
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) {
     die("DB connection failed: " . mysqli_connect_error());
 }
 
-/* ================= ACTION HANDLER ================= */
+/* ===== ACTION HANDLER ======== */
 if (isset($_GET['action'], $_GET['id'])) {
 
     $note_id = intval($_GET['id']);

@@ -1,7 +1,9 @@
 <?php
 session_start();
+
 $error = "";
-if (isset($_SESSION['error'])) {
+
+if(isset($_SESSION['error'])){
     $error = $_SESSION['error'];
     unset($_SESSION['error']);
 }
@@ -14,7 +16,7 @@ if (isset($_SESSION['error'])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Login • VIDYA</title>
+<title>VIDYA Admin Login</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -24,177 +26,427 @@ if (isset($_SESSION['error'])) {
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins, sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
 min-height:100vh;
+background:#f6f9f8;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(135deg,#10b981,#059669,#047857);
-padding:20px;
+padding:16px;
 }
 
-/* GLASS CARD */
+/* MAIN CARD */
 
-.card{
+.container{
 width:100%;
-max-width:420px;
-padding:42px 36px;
-border-radius:20px;
-background:rgba(255,255,255,0.92);
-backdrop-filter:blur(12px);
-box-shadow:0 30px 60px rgba(0,0,0,0.25);
-text-align:center;
-animation:fadeIn .6s ease;
+max-width:900px;
+height:560px;
+background:#fff;
+border-radius:28px;
+overflow:hidden;
+display:flex;
+position:relative;
+box-shadow:
+0 10px 30px rgba(15,23,42,.05),
+0 2px 10px rgba(15,23,42,.03);
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
-}
+/* LEFT */
 
-/* AVATAR */
-
-.avatar{
-width:110px;
-height:110px;
-margin:0 auto 18px;
-border-radius:50%;
-padding:4px;
-background:linear-gradient(135deg,#10b981,#047857);
-}
-
-.avatar img{
-width:100%;
+.left{
+width:50%;
+padding:48px 42px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:flex-start;
 height:100%;
-border-radius:50%;
-object-fit:cover;
-background:white;
-padding:3px;
+position:relative;
+top:-17px;
+z-index:2;
 }
 
-/* TITLE */
+.site-logo{
+margin-bottom:18px;
+display:flex;
+align-items:flex-start;
+}
 
-.card h2{
-font-size:26px;
+
+.site-logo img{
+height:60px;
+width:300px;
+display:block;
+object-fit:contain;
+margin-left:-67px;
+}
+.tag{
+display:inline-block;
+padding:7px 14px;
+background:#ecfdf5;
+color:#059669;
+font-size:12px;
+font-weight:600;
+border-radius:999px;
+margin-bottom:22px;
+width:max-content;
+}
+
+.left h1{
+font-size:48px;
+line-height:1;
 color:#111827;
-margin-bottom:25px;
+margin-bottom:18px;
+font-weight:700;
+letter-spacing:-2px;
+}
+
+.left h1 span{
+color:#10b981;
+}
+
+.left p{
+font-size:14px;
+line-height:1.8;
+color:#64748b;
+max-width:320px;
+}
+
+/* NOTEBOOK SPIRAL */
+
+.spiral{
+position:absolute;
+left:50%;
+top:0;
+transform:translateX(-50%);
+width:30px;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:space-evenly;
+align-items:center;
+z-index:5;
+}
+
+.ring{
+width:14px;
+height:14px;
+border:2px solid #94a3b8;
+border-radius:50%;
+background:white;
+position:relative;
+}
+
+.ring::before{
+content:"";
+position:absolute;
+width:2px;
+height:42px;
+background:#94a3b8;
+top:100%;
+left:50%;
+transform:translateX(-50%);
+}
+
+.ring:last-child::before{
+display:none;
+}
+
+/* RIGHT */
+
+.right{
+width:50%;
+padding:46px 42px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f8fffc;
+}
+
+.form-box{
+width:100%;
+max-width:300px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:18px;
+}
+
+.logo img{
+width:90px;
+height:90px;
+object-fit:contain;
+filter:
+drop-shadow(0 8px 18px rgba(16,185,129,.18));
+}
+.form-box h2{
+font-size:30px;
+color:#111827;
+margin-bottom:6px;
+}
+
+.subtitle{
+font-size:13px;
+color:#64748b;
+margin-bottom:24px;
 }
 
 /* ERROR */
-
 .error{
-background:#fee2e2;
-border-left:4px solid #ef4444;
-color:#b91c1c;
-padding:12px;
-border-radius:8px;
-margin-bottom:18px;
-font-size:14px;
-text-align:left;
+background:#fef2f2;
+border:1px solid #fecaca;
+padding:12px 14px;
+border-radius:14px;
+font-size:13px;
+color:#dc2626;
+margin-bottom:16px;
+animation:errorFade .45s ease;
+transform-origin:top;
 }
 
-/* FLOATING INPUT GROUP */
+/* ERROR ANIMATION */
 
+@keyframes errorFade{
+
+0%{
+opacity:0;
+transform:translateY(-10px) scale(.96);
+}
+
+100%{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+}
+
+/* INPUT */
 .input-group{
 position:relative;
-margin-bottom:22px;
+margin-bottom:18px;
 }
 
 .input-group input{
 width:100%;
-padding:14px 12px;
-border-radius:10px;
-border:1px solid #d1d5db;
-background:#f9fafb;
-font-size:14px;
+height:54px;
+border:1px solid #e2e8f0;
+background:white;
+border-radius:16px;
+padding:18px 16px 15px 16px;
+font-size:13px;
+outline:none;
 transition:.25s;
+color:#111827;
 }
 
 .input-group label{
 position:absolute;
-left:12px;
-top:14px;
-color:#6b7280;
-font-size:14px;
-background:#f9fafb;
-padding:0 4px;
-transition:.25s;
+left:16px;
+top:17px;
+font-size:13px;
+color:#94a3b8;
 pointer-events:none;
+transition:.22s ease;
+background:white;
+padding:0 4px;
 }
 
-/* FLOAT EFFECT */
-
-.input-group input:focus,
-.input-group input:not(:placeholder-shown){
-border-color:#059669;
-background:white;
-box-shadow:0 0 0 3px rgba(16,185,129,0.15);
+.input-group input:focus{
+border-color:#10b981;
+box-shadow:0 0 0 4px rgba(16,185,129,.08);
+padding-bottom: 15px;
 }
 
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label{
-top:-9px;
-font-size:12px;
+top:-7px;
+left:13px;
+font-size:11px;
 color:#059669;
-background:white;
+font-weight:500;
 }
-
 /* BUTTON */
 
 button{
 width:100%;
-padding:14px;
-background:#059669;
-color:white;
+height:52px;
 border:none;
-border-radius:10px;
-font-size:16px;
-font-weight:500;
+border-radius:16px;
+background:linear-gradient(135deg,#10b981,#059669);
+color:white;
+font-size:14px;
+font-weight:600;
 cursor:pointer;
 transition:.25s;
+margin-top:4px;
 }
 
 button:hover{
-background:#047857;
 transform:translateY(-2px);
-box-shadow:0 12px 25px rgba(0,0,0,0.2);
+box-shadow:0 10px 20px rgba(16,185,129,.16);
 }
 
 /* FOOTER */
 
 .footer{
-margin-top:20px;
-font-size:13px;
-color:#6b7280;
+margin-top:18px;
+text-align:center;
+font-size:12px;
+color:#94a3b8;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-@media(max-width:480px){
-.card{padding:30px 22px;}
-.avatar{width:90px;height:90px;}
-.card h2{font-size:22px;}
+@media(max-width:900px){
+
+.container{
+flex-direction:column;
+height:auto;
+max-width:430px;
 }
 
+.left,
+.right{
+width:100%;
+}
+
+.left{
+padding:34px 26px;
+}
+
+.right{
+padding:30px 22px;
+}
+
+.left h1{
+font-size:38px;
+}
+
+.spiral{
+width:100%;
+height:30px;
+left:0;
+top:50%;
+transform:translateY(-50%);
+flex-direction:row;
+}
+
+.ring::before{
+width:38px;
+height:2px;
+top:50%;
+left:100%;
+transform:translateY(-50%);
+}
+
+}
+
+@media(max-width:900px){
+
+.container{
+flex-direction:column;
+height:auto;
+max-width:430px;
+}
+
+.left,
+.right{
+width:100%;
+}
+
+.left{
+padding:34px 26px;
+}
+
+.right{
+padding:30px 22px;
+}
+
+.left h1{
+font-size:38px;
+}
+
+
+.spiral{
+display:none;
+}
+.site-logo{
+margin-bottom:16px;
+}
+
+.site-logo img{
+height:50px;
+width:310px;
+margin-left:-88px;
+}
+
+}
 </style>
+
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<div class="avatar">
-<img src="css/images/admin1.png" alt="Admin">
+<!-- LEFT -->
+
+<div class="left">
+
+<div class="site-logo">
+<img src="css/images/logo vidya1.1.png" alt="VIDYA Logo">
 </div>
 
-<h2>Admin Login</h2>
+<h1>
+Smart<br>
+<span>Admin.</span>
+</h1>
+<p>
+Manage students, uploads and academic resources from one centralized workspace.
+</p>
+
+</div>
+
+<!-- SPIRAL -->
+
+<div class="spiral">
+
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+<div class="ring"></div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<div class="form-box">
+
+<div class="logo">
+<img src="css/images/admin.png" alt="Admin">
+</div>
+
+<h2 style="text-align: center;">Welcome Back</h2>
+
+<div class="subtitle" style="text-align: center;">
+Sign in to continue
+</div>
 
 <?php if($error): ?>
 <div class="error">
-❌ <?php echo htmlspecialchars($error); ?>
+<?php echo htmlspecialchars($error); ?>
 </div>
 <?php endif; ?>
 
@@ -209,13 +461,18 @@ color:#6b7280;
 <input type="password" name="password" required placeholder=" ">
 <label>Password</label>
 </div>
-
-<button type="submit" name="login">Log In to Dashboard</button>
+<button type="submit" name="login">
+Login to Dashboard
+</button>
 
 </form>
 
 <div class="footer">
 VIDYA • Admin Control Panel
+</div>
+
+</div>
+
 </div>
 
 </div>

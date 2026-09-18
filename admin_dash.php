@@ -6,8 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 }
 
 include 'header.php';
-
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -204,6 +203,7 @@ backgroundColor: ['#10b981','#ef4444']
 });
 
 </script>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     $password = trim($_POST['password']);
 
 
-    $conn = mysqli_connect("localhost", "root", "", "collegenotes");
+    $conn = mysqli_connect("localhost", "root", "", "vidyadb");
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }

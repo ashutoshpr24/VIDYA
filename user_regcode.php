@@ -8,7 +8,7 @@ if (isset($_POST['register'])) {
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $conn = mysqli_connect("localhost", "root", "", "collegenotes");
+    $conn = mysqli_connect("localhost", "root", "", "vidyadb");
 
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());

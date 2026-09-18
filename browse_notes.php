@@ -3,7 +3,7 @@ include 'auth.php';
 protectPage(['student', 'teacher', 'admin']);
 include 'header.php';
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 $subjects = mysqli_query($conn, "SELECT * FROM subjects");
 ?>
 
@@ -110,7 +110,7 @@ No notes found
 <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden flex flex-col">
 
 <img
-src="${note.image ? note.image : 'css/images/notes1.png'}"
+src="${note.image ? note.image : 'css/images/notes3.png'}"
 class="w-full h-40 object-cover">
 
 <div class="p-4 flex flex-col flex-grow">
@@ -172,7 +172,7 @@ Download
         } elseif ($_SESSION['role'] === 'teacher') {
             $url = 'teacher_dash.php';
         } elseif ($_SESSION['role'] === 'student') {
-            $url = null;
+            $url = 'homepage.php';
         } else {
             $url = 'homepage.php';
         }
@@ -184,23 +184,15 @@ Download
                 <a
                     href="<?php echo $url; ?>"
                     class="inline-block bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-black">
-
                     Back to Dashboard
-
                 </a>
-
             </div>
 
     <?php endif;
     } ?>
 
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 py-10 text-center">
-
-        © 2026 VIDYA. All rights reserved by Ashutosh Prajapati.
-
-    </footer>
+<?php include 'footer.php'; ?>
 
 </body>
 

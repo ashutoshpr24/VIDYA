@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username   = "root";
 $password   = "";
-$database   = "collegenotes"; 
+$database   = "vidyadb";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -10,12 +10,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-function fetchTeachers($conn) {
+function fetchTeachers($conn)
+{
     $sql = "SELECT * FROM users WHERE role = 'teacher'";
     return $conn->query($sql);
 }
 
-function fetchTeacherById($conn, $id) {
+function fetchTeacherById($conn, $id)
+{
     $stmt = $conn->prepare("SELECT * FROM users WHERE id=? AND role='teacher'");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -47,4 +49,3 @@ if (isset($_GET['delete'])) {
     header("Location: manage_teachers.php");
     exit();
 }
-?>

@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$dbname = "collegenotes";
+$dbname = "vidyadb";
 
 $conn = mysqli_connect($host, $user, $password, $dbname);
 if (!$conn) {

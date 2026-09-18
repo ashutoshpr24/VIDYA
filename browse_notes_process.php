@@ -2,7 +2,7 @@
 include 'auth.php';
 protectPage(['student', 'teacher', 'admin']);
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) {
     echo json_encode([]);
     exit();

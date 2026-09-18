@@ -125,6 +125,7 @@ Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> 👋
 
 </div>
 </div>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

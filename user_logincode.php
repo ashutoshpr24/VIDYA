@@ -5,7 +5,7 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $conn = mysqli_connect("localhost", "root", "", "collegenotes");
+    $conn = mysqli_connect("localhost", "root", "", "vidyadb");
     if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
     $sql = "SELECT * FROM users WHERE email = ?";
@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
                 if ($row['role'] === 'teacher') {
                     header("Location: teacher_dash.php");
                 } else {
-                    header("Location: homepage.php"); 
+                    header("Location: homepage.php");
                 }
                 exit();
             } else {
@@ -43,10 +43,8 @@ if (isset($_POST['login'])) {
         header("Location: userlogin.php?error=stmt_failed");
         exit();
     }
-
     mysqli_close($conn);
 } else {
     header("Location: userlogin.php");
     exit();
 }
-?>

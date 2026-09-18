@@ -3,7 +3,7 @@ include 'auth.php';
 protectPage(['admin', 'teacher']);
 include 'header.php';
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) {
     die("DB connection failed: " . mysqli_connect_error());
 }
@@ -221,10 +221,7 @@ Back to Dashboard
 </div>
 
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-400 py-10 text-center mt-10">
-© 2026 VIDYA. All rights reserved by Ashutosh Prajapati.
-</footer>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

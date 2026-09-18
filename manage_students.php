@@ -255,10 +255,6 @@ Back to Dashboard
 </div>
 
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-400 py-10 text-center mt-10">
-© 2026 VIDYA. All rights reserved by Ashutosh Prajapati.
-</footer>
-
+<?php include 'footer.php'; ?>
 </body>
 </html>

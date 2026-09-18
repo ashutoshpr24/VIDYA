@@ -2,7 +2,7 @@
 include 'auth.php';
 protectPage(['admin', 'teacher']);
 
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) {
     die("DB connection failed: " . mysqli_connect_error());
 }

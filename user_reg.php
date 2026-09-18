@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "collegenotes");
+$conn = mysqli_connect("localhost", "root", "", "vidyadb");
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
 // AJAX TAC
@@ -73,160 +73,8 @@ if (isset($_POST['register'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VIDYA Register</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="css/user_reg.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
-
-body{
-  background:#eef2f7;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:10px;
-}
-
-/* ===== FIXED CONTAINER ===== */
-.container{
-  display:flex;
-  max-width:1050px;
-  width:100%;
-  height:550px; /* FIXED HEIGHT */
-  background:white;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 25px 50px rgba(0,0,0,0.12);
-}
-
-.left{
-  flex:0.9;
-  padding:30px 40px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  background:white;
-
-  /* 👉 KEY FIX */
-  box-shadow: 8px 0 20px -10px rgba(0,0,0,0.12);
-
-  z-index:2;
-}
-
-
-
-.logo img{width:150px;margin-left:-20px;}
-
-.left h2{text-align:center;margin-bottom:4px;}
-.left p{text-align:center;color:#6b7280;margin-bottom:13px;}
-
-input,select{
-  width:100%;
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #d1d5db;
-  margin-bottom:8px;
-  font-size:14px;
-}
-
-button{
-  width:100%;
-  padding:10px;
-  background:#059669;
-  color:white;
-  border:none;
-  border-radius:6px;
-  margin-top:6px;
-}
-
-/* ===== INLINE ROLE FIXED ===== */
-.role-row{
-  position: relative;
-  display: flex;
-  gap: 0; /* IMPORTANT: remove gap initially */
-}
-
-/* select full width initially */
-.role-row select{
-  width: 100%;
-  transition: width 0.35s ease;
-}
-
-/* TAC hidden completely */
-#teacher-inline{
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: all 0.35s ease;
-}
-
-/* ACTIVE STATE */
-.role-row.active{
-  gap: 8px; /* add gap ONLY when active */
-}
-
-.role-row.active select{
-  width: 45%;
-}
-
-.role-row.active #teacher-inline{
-  width: 55%;
-  opacity: 1;
-}
-
-/* ===== RIGHT IMAGE FIX ===== */
-.right{
-  flex:1.3;
-  display:flex;
-  align-items:center;   /* ✅ FIX */
-  justify-content:center;
-  overflow:hidden;
-}
-
-.right img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* ===== ERRORS ===== */
-#error-tac{font-size:10px;min-height:14px;text-align: center;}
-#error-email{font-size:10px;text-align:center;min-height: 8px; margin-top: -10px;margin-bottom: 5px;}
-
-@media(max-width:768px){
-  .container{
-    flex-direction:column;
-    height:auto;
-  }
-
-  .right{
-    order:-1;          /* ✅ IMPORTANT */
-    height:260px;
-    display:flex;
-    align-items:center;   /* ✅ center crop like old */
-    justify-content:center;
-  }
-}
-
-/* SAME AS LOGIN PAGE */
-.signup{
-  margin-top:16px;
-  font-size:14px;
-  color:#6b7280;
-  text-align:center;
-}
-
-.signup a{
-  color:#059669;
-  text-decoration:none;
-  font-weight:500;
-  display:inline-block;
-  transition: transform 0.2s ease, font-weight 0.2s ease;
-}
-
-.signup a:hover{
-  font-weight:600;
-  transform:scale(1.05);
-}
 </style>
 </head>
 
@@ -287,19 +135,17 @@ const emailInput=document.querySelector('input[name="email"]');
 const errorEmail=document.getElementById('error-email');
 const regForm=document.getElementById('regForm');
 
-// toggle inline TAC
-roleSelect.addEventListener('change',()=>{
-  if(roleSelect.value==='teacher'){
+// toggle TAC
+roleSelect.addEventListener('change', () => {
+  const teacherInline = document.getElementById('teacher-inline');
+
+  if (roleSelect.value === 'teacher') {
     roleRow.classList.add('active');
+    teacherInline.style.width = "";
   } else {
     roleRow.classList.remove('active');
-
-    // force reset completely
-    tacInput.value='';
-    errorTac.innerText='';
-
-    // IMPORTANT: force reflow fix (removes leftover width bug)
-    teacherInline = document.getElementById('teacher-inline');
+    tacInput.value = '';
+    errorTac.innerText = '';
     teacherInline.style.width = "0px";
   }
 });
