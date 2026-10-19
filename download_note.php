@@ -32,3 +32,4 @@ header('Pragma: public');
 header('Content-Length: ' . filesize($file));
 readfile($file);
 exit();
+// this is a comment

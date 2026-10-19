@@ -438,7 +438,7 @@ Manage students, uploads and academic resources from one centralized workspace.
 <img src="css/images/admin.png" alt="Admin">
 </div>
 
-<h2 style="text-align: center;">Welcome Back</h2>
+<h2 style="text-align: center;">Welcome</h2>
 
 <div class="subtitle" style="text-align: center;">
 Sign in to continue
